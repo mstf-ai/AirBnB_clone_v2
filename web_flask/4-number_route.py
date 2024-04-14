@@ -1,46 +1,44 @@
 #!/usr/bin/python3
-""" 4. Add fourth view function that displays var only if is integer """
-
+'''A simple Flask web application.
+'''
 from flask import Flask
 
 
 app = Flask(__name__)
+'''The Flask application instance.'''
 app.url_map.strict_slashes = False
 
 
 @app.route('/')
-def Hello_worlddd():
-    """ Returns some text. """
+def index():
+    '''The home page.'''
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb')
-def hi():
-    """ Return other text. """
+def hbnb():
+    '''The hbnb page.'''
     return 'HBNB'
 
 
 @app.route('/c/<text>')
-def lang_c_text(text):
-    """ replace text with variable. """
-    text = text.replace('_', ' ')
-    return 'C {}'.format(text)
+def c_page(text):
+    '''The c page.'''
+    return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python/')
 @app.route('/python/<text>')
-def p_text(text='is cool'):
-    """ replace more text with another variable. """
-    text = text.replace('_', ' ')
-    return 'Python {}'.format(text)
+@app.route('/python', defaults={'text': 'is cool'})
+def python_page(text):
+    '''The python page.'''
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
 @app.route('/number/<int:n>')
-def n_text(n):
-    """ replace with int only if given int. """
-    n = str(n)
+def number_page(n):
+    '''The number page.'''
     return '{} is a number'.format(n)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port='5000')
